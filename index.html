@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Types of Sentences Interactive Lesson</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f7ff;color:#222}
+header{background:linear-gradient(135deg,#6c63ff,#4ecdc4);color:white;padding:25px;text-align:center}
+section{background:white;margin:20px auto;padding:20px;border-radius:15px;max-width:1000px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+h2{color:#6c63ff}
+.card{border:2px solid #ddd;padding:15px;margin:10px;border-radius:12px;cursor:pointer}
+.card-content{display:none;margin-top:10px}
+.question{margin:15px 0;padding:10px;border:1px solid #ddd;border-radius:10px}
+button{background:#6c63ff;color:white;border:none;padding:10px 16px;border-radius:8px;cursor:pointer}
+button:hover{opacity:.9}
+.correct{background:#d4edda}
+.wrong{background:#f8d7da}
+.result{font-weight:bold;margin-top:10px}
+.progress{position:sticky;top:0;background:white;padding:10px;text-align:center;font-weight:bold;border-bottom:1px solid #ddd}
+select{padding:5px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Types of Sentences</h1>
+<p>Clause • Simple • Compound • Complex</p>
+</header>
+
+<div class="progress">Interactive Grammar Lesson</div>
+
+<section>
+<h2>1. Sentence Detective</h2>
+<p>Is it a complete sentence?</p>
+<div id="detective"></div>
+<button onclick="checkDetective()">Check Answers</button>
+<div id="detectiveResult" class="result"></div>
+</section>
+
+<section>
+<h2>2. Learn the Types</h2>
+
+<div class="card" onclick="toggleCard(this)">
+<b>Clause</b>
+<div class="card-content">
+A clause is a group of words that includes a subject and a verb.
+<ul>
+<li>People enjoy watching movies.</li>
+<li>She listens to K-pop every day.</li>
+</ul>
+</div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+<b>Simple Sentence</b>
+<div class="card-content">
+One subject-verb combination.
+<ul>
+<li>People enjoy watching movies.</li>
+<li>My brother plays the guitar.</li>
+</ul>
+</div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+<b>Compound Sentence</b>
+<div class="card-content">
+Two simple sentences joined by and, but, or, so.
+<ul>
+<li>I love romantic films, but my sister prefers action movies.</li>
+<li>Jack plays games every night, so he often goes to bed late.</li>
+</ul>
+</div>
+</div>
+
+<div class="card" onclick="toggleCard(this)">
+<b>Complex Sentence</b>
+<div class="card-content">
+Two clauses joined by because, although, when, before, after, if, since, while.
+<ul>
+<li>I go to bed late because I watch a movie.</li>
+<li>When she listens to music, she feels relaxed.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2>3. Identify the Sentence Type</h2>
+<div id="types"></div>
+<button onclick="checkTypes()">Check Answers</button>
+<div id="typeResult" class="result"></div>
+</section>
+
+<section>
+<h2>4. Build a Sentence</h2>
+
+<p><b>Build a SIMPLE sentence</b></p>
+<select id="s1">
+<option></option>
+<option>I play football.</option>
+<option>I play football and my friend plays tennis.</option>
+</select>
+
+<p><b>Build a COMPOUND sentence</b></p>
+<select id="s2">
+<option></option>
+<option>She studies hard because she has a test.</option>
+<option>She studies hard, and she gets good grades.</option>
+</select>
+
+<p><b>Build a COMPLEX sentence</b></p>
+<select id="s3">
+<option></option>
+<option>When I get home, I do my homework.</option>
+<option>I get home.</option>
+</select>
+
+<br><br>
+<button onclick="checkBuild()">Check Builder</button>
+<div id="buildResult" class="result"></div>
+</section>
+
+<section>
+<h2>5. Final Challenge</h2>
+<div id="finalQuiz"></div>
+<button onclick="checkFinal()">Finish Challenge</button>
+<div id="finalResult" class="result"></div>
+</section>
+
+<script>
+function toggleCard(card){
+const c=card.querySelector('.card-content');
+c.style.display=c.style.display==='block'?'none':'block';
+}
+
+const detectiveData=[
+["My brother plays football.","Complete"],
+["Because I was tired.","Not"],
+["The students in the classroom.","Not"],
+["We watched a movie last night.","Complete"],
+["Although it was raining.","Not"],
+["She listens to music every day.","Complete"]
+];
+
+let dhtml="";
+detectiveData.forEach((q,i)=>{
+dhtml+=`<div class='question'>${i+1}. ${q[0]}<br>
+<label><input type='radio' name='d${i}' value='Complete'> Complete Sentence</label>
+<label><input type='radio' name='d${i}' value='Not'> Not Complete</label></div>`;
+});
+document.getElementById("detective").innerHTML=dhtml;
+
+function checkDetective(){
+let score=0;
+detectiveData.forEach((q,i)=>{
+let ans=document.querySelector(`input[name=d${i}]:checked`);
+if(ans && ans.value===q[1]) score++;
+});
+document.getElementById("detectiveResult").innerHTML=`Score: ${score}/${detectiveData.length}`;
+}
+
+const typeData=[
+["She watches TV every evening.","Simple"],
+["I was tired, so I went to bed early.","Compound"],
+["Because it was raining, we stayed home.","Complex"],
+["They play football after school.","Simple"],
+["I like coffee, but my brother likes tea.","Compound"],
+["When I arrive home, I do my homework.","Complex"],
+["The teacher explained the lesson.","Simple"],
+["We can eat now, or we can wait.","Compound"],
+["Although she was nervous, she gave a great speech.","Complex"],
+["My parents work hard.","Simple"]
+];
+
+let thtml="";
+typeData.forEach((q,i)=>{
+thtml+=`<div class='question'>${i+1}. ${q[0]}<br>
+<select id='t${i}'>
+<option></option>
+<option>Simple</option>
+<option>Compound</option>
+<option>Complex</option>
+</select></div>`;
+});
+document.getElementById("types").innerHTML=thtml;
+
+function checkTypes(){
+let score=0;
+typeData.forEach((q,i)=>{
+if(document.getElementById("t"+i).value===q[1]) score++;
+});
+document.getElementById("typeResult").innerHTML=`Score: ${score}/${typeData.length}`;
+}
+
+function checkBuild(){
+let score=0;
+if(document.getElementById("s1").value==="I play football.") score++;
+if(document.getElementById("s2").value==="She studies hard, and she gets good grades.") score++;
+if(document.getElementById("s3").value==="When I get home, I do my homework.") score++;
+document.getElementById("buildResult").innerHTML=`Builder Score: ${score}/3`;
+}
+
+const finalData=[
+["I love music because it helps me relax.","Complex"],
+["We watched a film, and we ate popcorn.","Compound"],
+["My sister sings well.","Simple"],
+["Although it was late, we continued studying.","Complex"],
+["Tom was hungry, so he made a sandwich.","Compound"]
+];
+
+let fhtml="";
+finalData.forEach((q,i)=>{
+fhtml+=`<div class='question'>${q[0]}<br>
+<select id='f${i}'>
+<option></option><option>Simple</option><option>Compound</option><option>Complex</option>
+</select></div>`;
+});
+document.getElementById("finalQuiz").innerHTML=fhtml;
+
+function checkFinal(){
+let score=0;
+finalData.forEach((q,i)=>{
+if(document.getElementById("f"+i).value===q[1]) score++;
+});
+let msg=`Final Score: ${score}/${finalData.length}`;
+if(score===finalData.length) msg+=" 🏆 Perfect!";
+document.getElementById("finalResult").innerHTML=msg;
+}
+</script>
+
+</body>
+</html>
